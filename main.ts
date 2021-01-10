@@ -94,7 +94,6 @@ class UnionRangeValidationWithTypeAlias extends RangeValidationBase {
         return this.RangeCheck(this.getNumber(value));
     }
 }
-
 // we can combine type aliases with types
 // to create more complex type aliases as well
 // add null support to stringOrNumber
@@ -103,4 +102,14 @@ type NullableStringOrNumber = stringOrNumber | null;
 let total: stringOrNumber = 10;
 if (new UnionRangeValidationWithTypeAlias(0, 100).isInRange(total)) {
     console.log('This value is in range');
+}
+
+// Assigning properties using object spread
+function ConsolidatedGrid (grid: Grid, margin: Margin): Grid & Margin {
+    let consolidatedGrid = <Grid & Margin>{...margin};
+    consolidatedGrid.Width += grid.Width;
+    consolidatedGrid.Height += grid.Height;
+    consolidatedGrid.Padding = margin.Padding ? margin.Padding : grid.Padding;
+
+    return consolidatedGrid;
 }
