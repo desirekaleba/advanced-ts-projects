@@ -113,3 +113,29 @@ function ConsolidatedGrid (grid: Grid, margin: Margin): Grid & Margin {
 
     return consolidatedGrid;
 }
+
+// Deconstructing objects with REST properties
+let guitar = {
+    manufacturer: 'Ibanes',
+    type: 'Jem 888',
+    strings: 8
+};
+
+// we could use
+// which is not elegant as there's a lot of repetition
+const manufacturerOne = guitar.manufacturer;
+const typeOne = guitar.type;
+const stringsOne = guitar.strings;
+
+// using destructuring or deconstructing
+let {manufacturer, type, strings} = guitar;
+
+// if we wish to change the name of manufacturer to maker, type to typ and strings to wires
+// we use
+let {manufacturer: maker, type: typ, strings: wires} = guitar;
+
+// using our REST operator
+// The REST operator must appear at the end of the assignment list
+// Typescript compiler complains if we add any properties after it
+let {manufacturer: company, ...details} = guitar;
+
