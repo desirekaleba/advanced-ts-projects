@@ -82,3 +82,25 @@ function consolidatedGrid (grid: Grid, margin: Margin): Grid & Margin {
 
     return consolidatedGrid;
 }
+
+// Simplifying type declarations with types aliases
+// 'type' is used to create our type aliases
+// eg: type stringOrNumber = string | number;
+type stringOrNumber = string | number;
+class UnionRangeValidationWithTypeAlias extends RangeValidationBase {
+    isInRange(value: stringOrNumber): boolean {
+        if (typeof value === 'number')
+            return this.RangeCheck(value);
+        return this.RangeCheck(this.getNumber(value));
+    }
+}
+
+// we can combine type aliases with types
+// to create more complex type aliases as well
+// add null support to stringOrNumber
+
+type NullableStringOrNumber = stringOrNumber | null;
+let total: stringOrNumber = 10;
+if (new UnionRangeValidationWithTypeAlias(0, 100).isInRange(total)) {
+    console.log('This value is in range');
+}
