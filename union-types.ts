@@ -52,3 +52,33 @@ class UnionRangeValidation extends RangeValidationBase {
         return this.RangeCheck(this.getNumber(value));
     }
 }
+
+// Combining types with intersection types
+
+class Grid {
+    Width: number = 0;
+    Height: number = 0;
+    Weight: number = 0;
+    Padding: number = 0;
+}
+
+class Margin {
+    Top: number = 0;
+    Left: number = 0;
+    Width: number = 10;
+    Height: number = 20;
+    Weight: string = "1";
+    Padding?: number;
+}
+
+function consolidatedGrid (grid: Grid, margin: Margin): Grid & Margin {
+    let consolidatedGrid = <Grid & Margin>{};
+    consolidatedGrid.Width = grid.Width + margin.Width;
+    consolidatedGrid.Height = grid.Height + margin.Height;
+    consolidatedGrid.Left = margin.Left;
+    consolidatedGrid.Top = margin.Top;
+    consolidatedGrid.Padding = margin.Padding ? margin.Padding : grid.Padding;
+
+
+    return consolidatedGrid;
+}
