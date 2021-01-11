@@ -141,3 +141,10 @@ let {manufacturer: company, ...details} = guitar;
 // note: arrays work the same apart from {} being replaced by []
 
 // Coping with a variable number of parameters using REST
+function PrintInstruments(log: string, ...instruments: string[]): void {
+    console.log(log);
+    instruments.forEach(instrument => {
+        console.log(instrument);
+    });
+}
+PrintInstruments('Music Shop Inventory', 'Guitar', 'Drums', 'Clarinet', 'Clavinova');
