@@ -148,3 +148,95 @@ function PrintInstruments(log: string, ...instruments: string[]): void {
     });
 }
 PrintInstruments('Music Shop Inventory', 'Guitar', 'Drums', 'Clarinet', 'Clavinova');
+
+// AOP using decorators
+interface IDecoratorExample {
+    AnyoneCanRun(args: string): void;
+    AdminOnly(args: string): void;
+}
+
+class NoRoleCheck implements IDecoratorExample {
+    AnyoneCanRun(args: string): void {
+        if (!isInRole('user')) {
+            console.log(`${currentUser.user} is not in the user role`);
+            return;
+        }
+        console.log(args);
+    }
+    AdminOnly(args: string): void {
+        if (!isInRole('admin')) {
+            console.log(`${currentUser.user} is not in the admin role`);
+            return;
+        }
+        console.log(args);
+    }
+}
+
+let currentUser = {
+    user: 'Peter',
+    roles: [
+        {role: 'user'},
+        {role: 'admin'}
+    ]
+};
+
+function TestDecoratorExample(decoratorMethod: IDecoratorExample): void {
+    console.log(`Current user ${currentUser.user}`);
+    decoratorMethod.AnyoneCanRun(`Running as a user`);
+    decoratorMethod.AdminOnly(`Running as admin`);
+}
+TestDecoratorExample(new NoRoleCheck());
+
+function isInRole(role: string): boolean {
+    return currentUser.roles.some(r => r.role === role);
+}
+
+// using decorator to ensure that a user belongs to the admin role
+function Admin(target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+    let originalMethod = descriptor.value;
+    descriptor.value = function() {
+        if (isInRole('admin')) {
+            originalMethod.apply(this, arguments);
+            return;
+        }
+        console.log(`${currentUser.user} is not in the admin role`);
+    }
+    return descriptor;
+}
+
+class DecoratedExampleMethodDecoration implements IDecoratorExample {
+    AnyoneCanRun(args: string): void {
+        console.log(args);
+    }
+
+    @Admin
+    AdminOnly(args: string): void {
+        console.log(args);
+    }
+}
+// using decorator factory
+function Role(role: string) {
+    return function(target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+        let originalMethod = descriptor.value;
+        descriptor.value = function() {
+            if (isInRole(role)) {
+                originalMethod.apply(this, arguments);
+                return;
+            }
+            console.log(`${currentUser.user} is not in the ${role} role`);
+        }
+        return descriptor;
+    }
+}
+
+class DecoratedExampleMethodDecoration2 implements IDecoratorExample {
+    @Role('user')
+    AnyoneCanRun(args: string): void {
+        console.log(args);
+    }
+
+    @Role('admin')
+    AdminOnly(args: string): void {
+        console.log(args);
+    }
+}
