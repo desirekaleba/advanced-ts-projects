@@ -138,4 +138,6 @@ let {manufacturer: maker, type: typ, strings: wires} = guitar;
 // The REST operator must appear at the end of the assignment list
 // Typescript compiler complains if we add any properties after it
 let {manufacturer: company, ...details} = guitar;
+// note: arrays work the same apart from {} being replaced by []
 
+// Coping with a variable number of parameters using REST
