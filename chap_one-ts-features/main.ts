@@ -240,3 +240,18 @@ class DecoratedExampleMethodDecoration2 implements IDecoratorExample {
         console.log(args);
     }
 }
+
+// Composing types using mixins
+class ActiveRecord {
+    Deleted = false;
+}
+
+class Person extends ActiveRecord {
+    constructor(firstName: string, lastName: string) {
+        super();
+        this.FirstName = firstName;
+        this.LastName = lastName;
+    }
+    FirstName: string;
+    LastName: string;
+}
