@@ -255,3 +255,45 @@ class Person extends ActiveRecord {
     FirstName: string;
     LastName: string;
 }
+
+// mixin type
+type Constructor<T = {}> = new (...args: any[]) => T;
+
+function RecordStatus<T extends Constructor>(base: T) {
+    return class extends base {
+        Deleted: boolean = false;
+    }
+}
+
+// merging or mixing
+const ActivePerson = RecordStatus(Person);
+let activePerson = new ActivePerson('Peter', 'Hanlon');
+activePerson.Deleted = true;
+
+// adding details about when the record was last updated
+function Timestamp<T extends Constructor>(base: T) {
+    return class extends base {
+        Updated: Date = new Date();
+    }
+}
+
+// Adding Timestamp to our ActivePerson
+const ActivePerson2 = RecordStatus(Timestamp(Person));
+
+// the order here does not matter we can either start with Timestamp or RecordStatus
+// we could as well use 
+// const ActivePerson2 = Timestamp(RecordStatus(Person));
+
+// using constructors in our mixins
+function RecordStatus2<T extends Constructor>(base: T) {
+    return class extends base {
+        private deleted: boolean = false;
+        get Deleted(): boolean {
+            return this.deleted;
+        }
+        Delete(): void {
+            this.deleted = true;
+            console.log(`The record has beeb marked as deleted`);
+        }
+    }
+}
