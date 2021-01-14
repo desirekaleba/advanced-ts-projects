@@ -439,3 +439,40 @@ collection.Add(Genre.HeavyMetal, [`Tygers of Pan Tang`, `Saxon`, `Doro`]);
 collection.Add(Genre.Pop, [`Michael Jackson`, `Abba`, `The Spice Girls`]);
 collection.Add(Genre.Rock, [`Deep Purple`, `Led Zeppelin`, `The Dixie Dregs`]);
 
+// Creating asynchronous code with promises and async/await
+function ExpensiveWebCall (time: number): Promise<void> {
+    return new Promise((resolve, reject) => setTimeout(resolve, time));
+}
+class MyWebService {
+    callExpensiveWebOperation(): void {
+        ExpensiveWebCall(4000)
+        .then(() => console.log(`Finished web service`))
+        .catch(() => console.log(`Expensive web call failure`));
+    }
+}
+
+console.log(`Calling service`);
+new MyWebService().callExpensiveWebOperation();
+console.log(`Precessing continues until the web service returns`);
+
+// using async and await
+function ExpensiveWebCall2(time: number) {
+    return new Promise((resolve, reject) => setTimeout(resolve, time));
+}
+class MyWebService2 {
+    async callExpensiveWebOperation() {
+        await ExpensiveWebCall2(4000);
+        console.log(`Finished web service`);
+    }
+}
+// catching errors using async/await
+class MyWebService3 {
+    async callExpensiveWebOperation() {
+        try {
+            await ExpensiveWebCall2(4000);
+            console.log(`Finished web service`);
+        } catch (error) {
+            console.log(`Caught ${error}`);
+        }
+    }
+}
