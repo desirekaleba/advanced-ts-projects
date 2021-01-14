@@ -297,3 +297,102 @@ function RecordStatus2<T extends Constructor>(base: T) {
         }
     }
 }
+
+// Using the same code with different
+// types and using generics
+class QueueOfInt {
+    private queue: number[] = [];
+
+    public Push(value: number): void {
+        this.queue.push(value);
+    }
+
+    public Pop(): number | undefined {
+        return this.queue.shift();
+    }
+}
+
+const intQueue: QueueOfInt = new QueueOfInt();
+intQueue.Push(10);
+intQueue.Push(35);
+console.log(intQueue.Pop()); // prints 10
+console.log(intQueue.Pop()); // prints 35
+
+class QueueOfString {
+    private queue: string[] = [];
+
+    public Push(value: string): void {
+        this.queue.push(value);
+    }
+    public Pop(): string | undefined {
+        return this.queue.shift();
+    }
+
+}
+
+// (a queue operates as First In First Out (or FIFO)). 
+// If we had forgotten the shift operation, 
+// we would have implemented a stack operation instead 
+// (Last In First Out (or LIFO)). 
+// This could lead to subtle and dangerous bugs in our code.
+
+// Rewriting our queue using generic
+class Queue<T> {
+    private queue: T[] = [];
+
+    public Push(value: T): void {
+        this.queue.push(value);
+    }
+
+    public Pop(): T | undefined {
+        return this.queue.shift();
+    }
+}
+
+const numberQueue: Queue<number> = new Queue<number>();
+const stringQueue: Queue<string> = new Queue<string>();
+
+numberQueue.Push(10);
+numberQueue.Push(35);
+console.log(numberQueue.Pop());
+console.log(numberQueue.Pop());
+
+stringQueue.Push(`Hello`);
+stringQueue.Push(`Generics`);
+console.log(stringQueue.Pop());
+console.log(stringQueue.Pop());
+
+//
+
+interface IStream {
+    ReadStream(): Int8Array;
+}
+
+class Data<T extends IStream> {
+    ReadStream(stream: T) {
+        let output = stream.ReadStream();
+        console.log(output.byteLength);
+    }
+}
+class WebStream implements IStream {
+    ReadStream(): Int8Array {
+        let array: Int8Array = new Int8Array(8);
+        for (let index: number = 0; index < array.length; index++) {
+            array[index] = index + 3;
+        }
+        return array;
+    }
+}
+
+class DiskStream implements IStream {
+    ReadStream(): Int8Array {
+        let array: Int8Array = new Int8Array(20);
+        for (let index: number = 0; index < array.length; index++) {
+            array[index] = index + 3;
+        }
+        return array;
+    }
+}
+
+const webStream = new Data<WebStream>();
+const diskStream = new Data<DiskStream>();
