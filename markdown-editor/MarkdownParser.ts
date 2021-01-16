@@ -7,7 +7,7 @@ class HtmlHandler {
             markdown.onkeyup = (e) => {
                 this.RenderHtmlContent(markdown, markdownOutput);
             }
-            window.onload = (e) => {
+            window.onload = () => {
                 this.RenderHtmlContent(markdown, markdownOutput);
             }
         }
