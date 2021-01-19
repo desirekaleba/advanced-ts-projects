@@ -124,6 +124,21 @@ class Header3Visitor extends VisitorBase {
         super(TagType.Header3, new TagTypeToHtml());
     }
 }
+class Header4Visitor extends VisitorBase {
+    constructor() {
+        super(TagType.Header4, new TagTypeToHtml());
+    }
+}
+class Header5Visitor extends VisitorBase {
+    constructor() {
+        super(TagType.Header5, new TagTypeToHtml());
+    }
+}
+class Header6Visitor extends VisitorBase {
+    constructor() {
+        super(TagType.Header6, new TagTypeToHtml());
+    }
+}
 class ParagraphVisitor extends VisitorBase {
     constructor() {
         super(TagType.Paragraph, new TagTypeToHtml());
