@@ -235,6 +235,21 @@ class Header3ChainHandler extends ParseChainHandler {
         super(document, "### ", new Header3Visitor());
     }
 }
+class Header4ChainHandler extends ParseChainHandler {
+    constructor(document: IMarkdownDocument) {
+        super(document, "#### ", new Header4Visitor());
+    }
+}
+class Header5ChainHandler extends ParseChainHandler {
+    constructor(document: IMarkdownDocument) {
+        super(document, "##### ", new Header5Visitor());
+    }
+}
+class Header6ChainHandler extends ParseChainHandler {
+    constructor(document: IMarkdownDocument) {
+        super(document, "###### ", new Header6Visitor());
+    }
+}
 class HorizontalRuleHandler extends ParseChainHandler {
     constructor(document: IMarkdownDocument) {
         super(document, "---", new HorizontalRuleVisitor());
@@ -246,12 +261,18 @@ class ChainOfResponsibilityFactory {
         let header1: Header1ChainHandler = new Header1ChainHandler(document);
         let header2: Header2ChainHandler = new Header2ChainHandler(document);
         let header3: Header3ChainHandler = new Header3ChainHandler(document);
+        let header4: Header4ChainHandler = new Header4ChainHandler(document);
+        let header5: Header5ChainHandler = new Header5ChainHandler(document);
+        let header6: Header6ChainHandler = new Header6ChainHandler(document);
         let horizontalRule: HorizontalRuleHandler = new HorizontalRuleHandler(document);
         let paragraph: ParagraphHandler = new ParagraphHandler(document);
 
         header1.SetNext(header2);
         header2.SetNext(header3);
-        header3.SetNext(horizontalRule);
+        header3.SetNext(header4);
+        header4.SetNext(header5);
+        header5.SetNext(header6);
+        header6.SetNext(horizontalRule);
         horizontalRule.SetNext(paragraph);
 
         return header1;
@@ -268,6 +289,7 @@ class Markdown {
             parseElement.CurrentLine = lines[index];
             header1.HandleRequest(parseElement);
         }
+        
         return document.Get();
     }
 }
