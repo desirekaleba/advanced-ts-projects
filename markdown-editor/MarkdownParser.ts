@@ -1,3 +1,6 @@
+/**
+ * Main class that render our content
+ */
 class HtmlHandler {
     private markdownChange: Markdown = new Markdown;
     public TextChangeHandler(inputId: string, outputId: string): void {
