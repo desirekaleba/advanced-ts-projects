@@ -24,7 +24,8 @@ class HtmlHandler {
 }
 
 /*
-* enumeration holding the available tags
+* available and acceptable tags
+* anything beyond this is not parsed
  */
 enum TagType {
     Paragraph,
