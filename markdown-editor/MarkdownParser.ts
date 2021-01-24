@@ -42,6 +42,7 @@ enum TagType {
 * for example # should be mapped to h1
 */
 class TagTypeToHtml {
+    // tag types holder
     private readonly tagType: Map<TagType, string> = new Map<TagType, string>();
     constructor() {
         this.tagType.set(TagType.Header1, "h1");
