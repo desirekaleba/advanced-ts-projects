@@ -38,7 +38,8 @@ enum TagType {
     HorizontalRule
 }
 /*
-* class mapping our md tags to their equivalent html tags
+* mapping our md tags to their equivalent html tags
+* for example # should be mapped to h1
 */
 class TagTypeToHtml {
     private readonly tagType: Map<TagType, string> = new Map<TagType, string>();
