@@ -70,7 +70,7 @@ class TagTypeToHtml {
 }
 
 /*
- * Interface to handle our markdown document
+ * Markdown document interface
  */
 interface IMarkdownDocument {
     Add(...content: string[]): void;
