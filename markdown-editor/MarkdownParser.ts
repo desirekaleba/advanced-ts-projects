@@ -97,7 +97,7 @@ class ParseElement {
     CurrentLine: string = "";
 }
 
-// visitor design pattern
+// * visitor design pattern
 interface IVisitor {
     Visit(token: ParseElement, markdownDocument: IMarkdownDocument): void;
 }
@@ -196,7 +196,7 @@ class ParseChainHandler extends Handler<ParseElement> {
     }
 }
 
-// a class to parse our md
+//  * parse md
 class LineParser {
     public Parse(value: string, tag: string): [boolean, string] {
         let output: [boolean, string] = [false, ""];
