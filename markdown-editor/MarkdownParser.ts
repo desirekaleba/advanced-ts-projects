@@ -226,42 +226,55 @@ class ParagraphHandler extends Handler<ParseElement> {
 }
 
 // handlers for appropriate tags
+
+// h1 chain handler
 class Header1ChainHandler extends ParseChainHandler {
     constructor(document: IMarkdownDocument) {
         super(document, "# ", new Header1Visitor());
     }
 }
+
+// h2 chain handler
 class Header2ChainHandler extends ParseChainHandler {
     constructor(document: IMarkdownDocument) {
         super(document, "## ", new Header2Visitor());
     }
 }
+// h3 chain handler
 class Header3ChainHandler extends ParseChainHandler {
     constructor(document: IMarkdownDocument) {
         super(document, "### ", new Header3Visitor());
     }
 }
+
+// h4 chain handler
 class Header4ChainHandler extends ParseChainHandler {
     constructor(document: IMarkdownDocument) {
         super(document, "#### ", new Header4Visitor());
     }
 }
+
+// h5 chain handler
 class Header5ChainHandler extends ParseChainHandler {
     constructor(document: IMarkdownDocument) {
         super(document, "##### ", new Header5Visitor());
     }
 }
+
+// h6 chain handler
 class Header6ChainHandler extends ParseChainHandler {
     constructor(document: IMarkdownDocument) {
         super(document, "###### ", new Header6Visitor());
     }
 }
+
+// hr chain handler
 class HorizontalRuleHandler extends ParseChainHandler {
     constructor(document: IMarkdownDocument) {
         super(document, "---", new HorizontalRuleVisitor());
     }
 }
-// build the chain
+// Chain
 class ChainOfResponsibilityFactory {
     Build(document: IMarkdownDocument): ParseChainHandler {
         let header1: Header1ChainHandler = new Header1ChainHandler(document);
