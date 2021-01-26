@@ -91,7 +91,7 @@ class MarkdownDocument implements IMarkdownDocument {
     }
 }
 /*
- * class for parsing our element
+ * parse elements
  */
 class ParseElement {
     CurrentLine: string = "";
