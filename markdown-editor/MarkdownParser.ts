@@ -298,6 +298,7 @@ class ChainOfResponsibilityFactory {
     }
 }
 
+// * Markdown
 class Markdown {
     public ToHtml(text: string): string {
         let document: IMarkdownDocument = new MarkdownDocument();
